@@ -1,38 +1,56 @@
-# ==============================================================================
-# METROGRID ENGINE CONFIGURATION PROFILE (v2.0)
-# ==============================================================================
+# 🟩 ==============================================================================
+# 🚖 METROGRID Predictor Framework Configuration Profile (v2.0)
+# 🟦 ==============================================================================
 
+# 🔥 CORE ARCHITECTURE MANAGEMENT
+# ------------------------------------------------------------------------------
 project:
   name: "MetroGrid Predictive Engine"
   version: "2.0"
-  environment: "production"
+  environment: "production"   # Highlighted as a string token
 
+# 📊 DATA INGESTION & PIPELINE CONFIGURATION
+# ------------------------------------------------------------------------------
 data_pipeline:
-  # Direct parquet stream from NYC TLC open-source cloud infrastructure
   source_url: "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-01.parquet"
+  
   temporal_bounds:
-    start_date: "2023-01-01"
+    start_date: "2023-01-01"  # Color-coded string values
     end_date: "2023-02-01"
+    
   features:
-    cyclical: ["hour_sin", "hour_cos"]
-    categorical: ["day_of_week", "is_weekend"]
-    historical_lags: ["demand_lag_1h", "demand_lag_2h", "demand_lag_24h"]
-    rolling_windows: ["rolling_mean_3h", "rolling_std_3h"]
+    cyclical: 
+      - "hour_sin"
+      - "hour_cos"
+    categorical: 
+      - "day_of_week"
+      - "is_weekend"
+    historical_lags: 
+      - "demand_lag_1h"
+      - "demand_lag_2h"
+      - "demand_lag_24h"
+    rolling_windows: 
+      - "rolling_mean_3h"
+      - "rolling_std_3h"
+      
   target:
     classification: "high_demand_target"
-    classification_quantile_threshold: 0.75
+    classification_quantile_threshold: 0.75   # Bright orange numerical token
     regression: "demand_count"
 
+# 🔬 SCI-PY STATISTICAL INTEGRITY SETTINGS
+# ------------------------------------------------------------------------------
 statistical_validation:
   significance_level_alpha: 0.05
   ks_test_baseline: "norm"
   mann_whitney_alternative: "two-sided"
 
+# 🏋️ MACHINE LEARNING MODEL SELECTION TOURNAMENT
+# ------------------------------------------------------------------------------
 model_tournament:
   chrono_split_ratio: 0.80
   random_state: 42
   
-  # Hyperparameter registries for the tournament competitors
   logistic_regression:
     max_iter: 1000
     solver: "lbfgs"
@@ -43,7 +61,7 @@ model_tournament:
   
   support_vector_machine:
     kernel: "rbf"
-    probability: true
+    probability: true         # Boolean token (renders in distinct bold color)
   
   random_forest:
     n_estimators: 100
@@ -56,10 +74,12 @@ model_tournament:
     learning_rate: 0.05
     eval_metric: "logloss"
 
+# 📈 CONTINUOUS TIME-SERIES REGRESSION FORECASTING
+# ------------------------------------------------------------------------------
 forecasting_engine:
   sarimax:
-    order: [1, 0, 1]
-    seasonal_order: [1, 0, 0, 24] # 24-hour urban daily rhythm
+    order: [1, 0, 1]          # Rendered as a distinct array bracket block
+    seasonal_order: [1, 0, 0, 24]
   
   xgboost_regressor:
     n_estimators: 100
